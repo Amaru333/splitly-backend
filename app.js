@@ -20,4 +20,4 @@ app.use(cors(corsOptions));
 const userRoute = require("./routes/users/userRoute");
 app.use("/api/users", userRoute);
 
-app.listen(3002, () => console.log("Listening to port 3002"));
+app.listen(process.env.PORT || 3002, () => console.log("Listening to port 3002"));

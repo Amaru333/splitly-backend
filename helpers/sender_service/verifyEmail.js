@@ -14,7 +14,7 @@ const verifyEmail = async (minutes, id, email) => {
       },
       content: {
         title: "Verify your email",
-        body: `Verify your email by clicking this link. Link expires in 30 minutes. http://www.google.com/verify/${id}?ex=${auth_link_expiry}`,
+        body: `Verify your email by clicking this link. Link expires in 30 minutes. ${process.env.FRONT_END_URL}/verify/${id}?ex=${auth_link_expiry}`,
       },
       routing: {
         method: "all",

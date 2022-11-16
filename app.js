@@ -17,7 +17,10 @@ const corsOptions = {
   credentials: true,
   origin: true,
 };
-app.use(cors(corsOptions));
+app.use(cors()); // <---- use cors middleware
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Users Route
 const userRoute = require("./routes/users/userRoute");

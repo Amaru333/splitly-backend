@@ -17,7 +17,7 @@ const corsOptions = {
   credentials: true,
   origin: true,
 };
-app.use(cors()); // <---- use cors middleware
+app.use(cors(corsOptions)); // <---- use cors middleware
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

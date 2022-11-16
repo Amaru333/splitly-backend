@@ -13,14 +13,8 @@ app.use(express.json());
 
 const corsOptions = {
   exposedHeaders: "auth-token",
-  allowedHeaders: "*",
-  credentials: true,
-  origin: true,
 };
-app.use(cors(corsOptions)); // <---- use cors middleware
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 //Users Route
 const userRoute = require("./routes/users/userRoute");

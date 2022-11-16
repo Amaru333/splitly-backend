@@ -14,8 +14,8 @@ app.use(express.json());
 const corsOptions = {
   exposedHeaders: "auth-token",
   origin: "*",
-  methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+  // methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
+  // allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
 };
 app.use(cors(corsOptions));
 

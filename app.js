@@ -11,12 +11,7 @@ mongoose.connect(process.env.DB_CONNECTION, () => console.log("Connected to data
 //Middlewares
 app.use(express.json());
 
-const corsOptions = {
-  exposedHeaders: "auth-token",
-  "Access-Control-Allow-Origin": "*",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 //Users Route
 const userRoute = require("./routes/users/userRoute");

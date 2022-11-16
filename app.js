@@ -14,15 +14,10 @@ app.use(express.json());
 const corsOptions = {
   exposedHeaders: "auth-token",
   // allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+  credentials: true,
+  origin: true,
 };
 app.use(cors(corsOptions));
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
 
 //Users Route
 const userRoute = require("./routes/users/userRoute");

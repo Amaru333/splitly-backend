@@ -10,7 +10,7 @@ const limitReached = async (email, mobile, limit) => {
         phone_number: mobile,
       },
       content: {
-        title: "Verify your email",
+        title: "Limit reached",
         body: `You have reached your monthly limit of ₹${limit}`,
       },
       routing: {

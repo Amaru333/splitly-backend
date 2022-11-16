@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  monthly_limit: {
+    type: Number,
+    default: 1000,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -20,4 +20,12 @@ app.use(cors(corsOptions));
 const userRoute = require("./routes/users/userRoute");
 app.use("/api/users", userRoute);
 
+//Transaction Route
+const transactionRoute = require("./routes/transactions/transactionRoute");
+app.use("/api/transactions", transactionRoute);
+
+//Activity Route
+const activityRoute = require("./routes/activity/activityRoute");
+app.use("/api/activity", activityRoute);
+
 app.listen(process.env.PORT || 3002, () => console.log("Listening to port 3002"));

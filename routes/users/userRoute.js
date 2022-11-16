@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const verifyEmail = require("../../helpers/sender_service/verifyEmail");
+const verifyToken = require("../../middlewares/verifyToken");
 
 //Register user
 router.post("/register", async (req, res) => {
@@ -43,9 +44,8 @@ router.post("/register", async (req, res) => {
   };
 
   const error_validation = await validation();
-  console.log(error_validation, error_validation.length);
+
   if (error_validation.length > 0) {
-    console.log(error_validation);
     return res.status(400).send({ error: error_validation.reduce((obj, item) => Object.assign(obj, { [item.field]: item.message }), {}) });
   }
 
@@ -96,7 +96,6 @@ router.post("/login", async (req, res) => {
   };
 
   const error_validation = await validations();
-  console.log(error_validation);
 
   if (error_validation.length > 0) return res.status(400).send({ error: error_validation.reduce((obj, item) => Object.assign(obj, { [item.field]: item.message }), {}) });
 
@@ -118,6 +117,7 @@ router.post("/login", async (req, res) => {
     name: user.name,
     username: user.username,
     verified: user.verified,
+    monthly_limit: user.monthly_limit,
   };
 
   res.header("auth-token", token).send(res_data);
@@ -162,13 +162,12 @@ router.post("/resend-verification", async (req, res) => {
 });
 
 router.get("/verify-token/:id", async (req, res) => {
-  console.log("test");
   const { id } = req.params;
   const token = req.header("auth-token");
-  console.log(id, token);
+
   try {
     const verified = jwt.verify(token, process.env.JWT_TOKEN_KEY);
-    console.log(verified, "VERIFIED");
+
     if (!verified)
       res.status(400).send({
         error: {
@@ -191,6 +190,7 @@ router.get("/verify-token/:id", async (req, res) => {
       name: user.name,
       username: user.username,
       verified: user.verified,
+      monthly_limit: user.monthly_limit,
     };
 
     res.send(res_data);
@@ -236,6 +236,31 @@ router.patch("/verify-mail", async (req, res) => {
     name: updated_user.name,
     username: updated_user.username,
     verified: updated_user.verified,
+    monthly_limit: updated_user.monthly_limit,
+  };
+
+  res.send(res_data);
+});
+
+router.patch("/update-limit", verifyToken, async (req, res) => {
+  const user = await UserModel.findById(req.userToken._id);
+
+  let updated_fields = {
+    monthly_limit: req.body.monthly_limit,
+  };
+
+  const update_user_details = await UserModel.updateOne({ _id: user._id }, updated_fields);
+  const updated_user = await UserModel.findById(user._id);
+
+  const res_data = {
+    logged: true,
+    _id: updated_user._id,
+    phoneNumber: updated_user.phoneNumber,
+    email: updated_user.email,
+    name: updated_user.name,
+    username: updated_user.username,
+    verified: updated_user.verified,
+    monthly_limit: updated_user.monthly_limit,
   };
 
   res.send(res_data);

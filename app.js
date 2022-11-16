@@ -13,6 +13,7 @@ app.use(express.json());
 
 const corsOptions = {
   exposedHeaders: "auth-token",
+  "Access-Control-Allow-Origin": "*",
 };
 app.use(cors(corsOptions));
 

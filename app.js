@@ -26,6 +26,7 @@ const testCorsOptions = {
   methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH"],
   optionsSuccessStatus: 200,
   credentials: true,
+  exposedHeaders: "auth-token",
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "device-remember-token", "Access-Control-Allow-Origin", "Origin", "Accept", "x-jwt", "Access-Control-Allow-Credentials", "Access-Control-Allow-Headers", "Access-Control-Allow-Methods", "content-type"],
 };
 app.use(cors(testCorsOptions));

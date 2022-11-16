@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const verifyEmail = require("../../helpers/sender_service/verifyEmail");
 const verifyToken = require("../../middlewares/verifyToken");
+const TransactionModel = require("../../models/TransactionModel");
 
 //Register user
 router.post("/register", async (req, res) => {
@@ -264,6 +265,21 @@ router.patch("/update-limit", verifyToken, async (req, res) => {
   };
 
   res.send(res_data);
+});
+
+router.get("/stats", async (req, res) => {
+  const user_count = await UserModel.aggregate([
+    {
+      $count: "count",
+    },
+  ]);
+  const transaction_count = await TransactionModel.aggregate([
+    {
+      $count: "count",
+    },
+  ]);
+
+  res.send({ users: user_count, transactions: transaction_count });
 });
 
 module.exports = router;

@@ -13,7 +13,7 @@ app.use(express.json());
 
 const corsOptions = {
   exposedHeaders: "auth-token",
-  // allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+  allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
   credentials: true,
   origin: true,
 };

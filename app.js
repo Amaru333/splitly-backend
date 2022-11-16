@@ -14,22 +14,7 @@ app.use(express.json());
 const corsOptions = {
   exposedHeaders: "auth-token",
 };
-const whitelist = ["https://splitly.vercel.app/"];
-const testCorsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(null, false);
-    }
-  },
-  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH"],
-  optionsSuccessStatus: 200,
-  credentials: true,
-  exposedHeaders: "auth-token",
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "device-remember-token", "Access-Control-Allow-Origin", "Origin", "Accept", "x-jwt", "Access-Control-Allow-Credentials", "Access-Control-Allow-Headers", "Access-Control-Allow-Methods", "content-type"],
-};
-app.use(cors(testCorsOptions));
+app.use(cors(corsOptions));
 
 //Users Route
 const userRoute = require("./routes/users/userRoute");

@@ -53,9 +53,11 @@ router.post("/", verifyToken, async (req, res) => {
     },
   ]);
 
-  if (month_spent[0].amount_spent + amount_spent >= user.monthly_limit) {
-    console.log("TEST");
-    const send_mail = await limitReached(user.email, user.phoneNumber, user.monthly_limit);
+  if (month_spent[0]?.amount_spent) {
+    if (month_spent[0]?.amount_spent + amount_spent >= user.monthly_limit) {
+      console.log("TEST");
+      const send_mail = await limitReached(user.email, user.phoneNumber, user.monthly_limit);
+    }
   }
 
   const transaction = new TransactionModel({
